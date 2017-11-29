@@ -32,13 +32,18 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',      # 인증 처리 Default App
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'bookmark', # 어플리케이션 모듈명 or
     'bookmark.apps.BookmarkConfig',  # 어플리케이션 설정 class
+    'blog.apps.BlogConfig',
+    'tagging.apps.TaggingConfig',
+    'disqus',
+    'django.contrib.sites',
+    'photo.apps.PhotoConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+DISQUS_WEBSITE_SHORTNAME = 'nicekkong'
+SITE_ID = 1
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -76,13 +85,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+# For MySQL 셋팅
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangodev',
+        'USER': 'django',
+        'PASSWORD': 'django!@',
+        'HOST': 'nicekkong.com',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -127,3 +146,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# 로그인 처리 관련 (Default 값이나 추가로 설정)
+LOGIN_URL = '/accouts/login'
+LOGOUT_URL = '/accouts/logout'
+LOGIN_REDIRECT_URL = '/'

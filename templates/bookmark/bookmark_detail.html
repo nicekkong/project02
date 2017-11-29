@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Django Bookmark {% endblock %}
+
+{% block content %}
+
+<div id="content">
+    <h1> {{ object.title }}
+        <ul>
+            <li> <a href="{{ object.url }}">{{ object.url }}</a></li>
+        </ul>
+    </h1>
+</div>
+{% endblock %}

@@ -15,5 +15,9 @@ class Bookmark(models.Model):
 
 
 
+class Gm_Bookmark(models.Model):
+    title = models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
 

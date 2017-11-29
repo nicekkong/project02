@@ -13,9 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+
+from django.conf.urls.static import static
+from django.conf import settings
+
+from .views import HomeView
+
+from .views import UserCreateView, UserCreateDoneTV
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+
+    # url(r'^bookmark/$', BookMarkLV.as_view(), name='index'),
+    # url(r'^bookmark/(?P<pk>\d+)/$', BookMarkDV.as_view(), name='detail')
+
+    url(r'^$', HomeView.as_view(), name='home'),
+
+    url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
+
+    url(r'^photo/', include('photo.urls', namespace='photo')),
+
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/register/$', UserCreateView.as_view(), name='register'),
+    url(r'^accounts/register/done/$', UserCreateDoneTV.as_view(), name='register_done'),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
